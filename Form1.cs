@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -29,64 +24,32 @@ namespace Diskspace_Notification
             RefreshDiskSpace();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // Example URL
-            string url = "https://abasd.accessbank.az/servicedesk/customer/portal/1/create/383";
-
-            // Open the URL in the default browser
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Call method to refresh disk space information
-            RefreshDiskSpace();
-        }
-
         private void RefreshDiskSpace()
         {
+            int threshold = int.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdPercent"], out int t) ? t : 10;
+
             try
             {
-                // Get information about the system drive
                 DriveInfo driveInfo = new DriveInfo(Path.GetPathRoot(Environment.SystemDirectory));
 
-                // Calculate the disk space usage percentage
                 double totalSpace = driveInfo.TotalSize;
                 double freeSpace = driveInfo.TotalFreeSpace;
                 double usedSpace = totalSpace - freeSpace;
                 double percentageUsed = (usedSpace / totalSpace) * 100;
-                double remainingSpace = freeSpace / (1024 * 1024 * 1024); // Convert to GB
+                double remainingSpace = freeSpace / (1024 * 1024 * 1024);
                 double percentageRemaining = 100 - percentageUsed;
 
-
-                // Update labels and progress bar
-                //label1.Text = $"Free Space: {freeSpace / (1024 * 1024 * 1024):N2} GB";
-                //label1.Text = $"Free Space: {freeSpace / (1024 * 1024 * 1024):N2} GB ({percentageUsed:N2}%)";
                 label1.Text = $"Free Space: {remainingSpace:N2} GB ({percentageRemaining:N2}%)";
                 label2.Text = $"Total Space: {totalSpace / (1024 * 1024 * 1024):N2} GB";
                 progressBar1.Value = (int)percentageUsed;
 
-                // Change the color of the progress bar based on remaining percentage
-                if (percentageRemaining < 10)
-                {
-                    progressBar1.ForeColor = Color.Red;
-                }
-                else
-                {
-                    progressBar1.ForeColor = Color.Green;
-                }
+                progressBar1.ForeColor = percentageRemaining < threshold ? Color.Red : Color.Green;
 
-                // Check if free percentage is below 10%
-                if (percentageRemaining < 10)
-                {
-                    // Trigger the DiskSpaceLow event
+                if (percentageRemaining < threshold)
                     OnDiskSpaceLow();
-                }
             }
             catch (Exception ex)
             {
-                // Handle error
                 MessageBox.Show($"Error occurred while refreshing disk space information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
