@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DiskSpace1
+namespace Diskspace_Notification
 {
     internal static class Program
     {

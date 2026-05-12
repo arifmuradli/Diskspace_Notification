@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D9A21444-A621-4A79-AD3A-B8A063AB9362}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DiskSpace1</RootNamespace>
-    <AssemblyName>DiskSpace1</AssemblyName>
+    <RootNamespace>Diskspace_Notification</RootNamespace>
+    <AssemblyName>Diskspace_Notification</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

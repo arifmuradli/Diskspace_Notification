@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DiskSpace1.Properties
+namespace Diskspace_Notification.Properties
 {
 
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace DiskSpace1
+namespace Diskspace_Notification
 {
     public partial class Form1 : Form
     {

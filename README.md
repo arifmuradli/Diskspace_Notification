@@ -1,4 +1,4 @@
-# DiskSpace1
+# Diskspace_Notification
 
 A Windows Forms utility that monitors system drive (C:) disk space usage and alerts users when free space drops below 10%.
 
@@ -17,8 +17,8 @@ A Windows Forms utility that monitors system drive (C:) disk space usage and ale
 
 ## Build
 
-Open `DiskSpace1.sln` in Visual Studio and build with **Debug** or **Release** configuration.
+Open `Diskspace_Notification.sln` in Visual Studio and build with **Debug** or **Release** configuration.
 
 ## Usage
 
-Run `bin\Release\DiskSpace1.exe`. The app launches on top of all windows and shows the current disk usage on load. Click **Refresh** to update. Use the language buttons to switch the alert text between Azerbaijani and English.
+Run `bin\Release\Diskspace_Notification.exe`. The app launches on top of all windows and shows the current disk usage on load. Click **Refresh** to update. Use the language buttons to switch the alert text between Azerbaijani and English.

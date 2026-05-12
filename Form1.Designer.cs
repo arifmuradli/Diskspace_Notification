@@ -1,4 +1,4 @@
-﻿namespace DiskSpace1
+﻿namespace Diskspace_Notification
 {
     partial class Form1
     {
@@ -75,7 +75,7 @@
             // 
             // button4
             // 
-            this.button4.BackgroundImage = global::DiskSpace1.Properties.Resources.eng6;
+            this.button4.BackgroundImage = global::Diskspace_Notification.Properties.Resources.eng6;
             this.button4.Location = new System.Drawing.Point(572, 246);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(54, 54);
@@ -85,7 +85,7 @@
             // 
             // button3
             // 
-            this.button3.BackgroundImage = global::DiskSpace1.Properties.Resources.aze1;
+            this.button3.BackgroundImage = global::Diskspace_Notification.Properties.Resources.aze1;
             this.button3.Location = new System.Drawing.Point(497, 246);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(54, 54);
