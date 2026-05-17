@@ -29,7 +29,7 @@ namespace Diskspace_Notification
         private void RefreshDiskSpace()
         {
             int thresholdPercent = int.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdPercent"], out int tp) ? tp : 10;
-            double thresholdGB = double.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdGB"], NumberStyles.Any, CultureInfo.InvariantCulture, out double tg) ? tg : 5.0;
+            bool gbValid = double.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdGB"], NumberStyles.Any, CultureInfo.InvariantCulture, out double thresholdGB);
             string condition = ConfigurationManager.AppSettings["DiskSpaceCondition"] ?? "OR";
 
             try
@@ -47,7 +47,7 @@ namespace Diskspace_Notification
                 progressBar1.Value = (int)percentageUsed;
 
                 bool belowPercent = percentageRemaining < thresholdPercent;
-                bool belowGB = remainingSpace < thresholdGB;
+                bool belowGB = gbValid && remainingSpace < thresholdGB;
 
                 bool triggered;
                 if (condition == "%")
@@ -78,22 +78,23 @@ namespace Diskspace_Notification
         private string BuildThresholdDescription(bool english)
         {
             int thresholdPercent = int.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdPercent"], out int tp) ? tp : 10;
-            double thresholdGB = double.TryParse(ConfigurationManager.AppSettings["DiskSpaceThresholdGB"], NumberStyles.Any, CultureInfo.InvariantCulture, out double tg) ? tg : 5.0;
+            string rawGB = ConfigurationManager.AppSettings["DiskSpaceThresholdGB"];
+            string gbDisplay = double.TryParse(rawGB, NumberStyles.Any, CultureInfo.InvariantCulture, out double _) ? $"{rawGB} GB" : "?";
             string condition = ConfigurationManager.AppSettings["DiskSpaceCondition"] ?? "OR";
 
             if (english)
             {
-                if (condition == "%")  return $"{thresholdPercent}%";
-                if (condition == "GB") return $"{thresholdGB:N1} GB";
-                if (condition == "AND") return $"{thresholdPercent}% and {thresholdGB:N1} GB";
-                return $"{thresholdPercent}% or {thresholdGB:N1} GB";
+                if (condition == "%")   return $"{thresholdPercent}%";
+                if (condition == "GB")  return gbDisplay;
+                if (condition == "AND") return $"{thresholdPercent}% and {gbDisplay}";
+                return $"{thresholdPercent}% or {gbDisplay}";
             }
             else
             {
-                if (condition == "%")  return $"{thresholdPercent}%";
-                if (condition == "GB") return $"{thresholdGB:N1} GB";
-                if (condition == "AND") return $"{thresholdPercent}% və {thresholdGB:N1} GB";
-                return $"{thresholdPercent}% və ya {thresholdGB:N1} GB";
+                if (condition == "%")   return $"{thresholdPercent}%";
+                if (condition == "GB")  return gbDisplay;
+                if (condition == "AND") return $"{thresholdPercent}% və {gbDisplay}";
+                return $"{thresholdPercent}% və ya {gbDisplay}";
             }
         }
 
