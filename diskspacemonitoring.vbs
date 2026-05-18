@@ -1,5 +1,5 @@
-' Define the critical disk space percentage threshold
-Const percentCritical = 10
+' Define the critical disk space threshold in GB
+Const gbCritical = 20
 
 ' Loop indefinitely
 Do
@@ -15,8 +15,8 @@ Do
         ' Calculate free space percentage
         DiskFreeSpacePercent = Round((objDisk.FreeSpace / objDisk.Size) * 100, 2)
 
-        ' Check if free space percentage is below the critical threshold
-        If DiskFreeSpacePercent < percentCritical Then
+        ' Check if free space in GB is below the critical threshold
+        If DiskFreeSpace < gbCritical Then
             ' Check if the process diskspace.exe is running
             Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
             Set colProcesses = objWMIService.ExecQuery("Select * from Win32_Process Where Name='diskspace.exe'")
@@ -24,7 +24,7 @@ Do
             If colProcesses.Count = 0 Then
                 ' Execute the specified executable if diskspace.exe is not running
                 Set objShell = CreateObject("WScript.Shell")
-                objShell.Run "\\accessbank.local\NETLOGON\Startup_User\DiskSpace\DiskSpace.exe"
+                objShell.Run "\\domain.local\NETLOGON\Startup_User\DiskSpace\DiskSpace.exe"
             End If
         End If
     Next

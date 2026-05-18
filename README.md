@@ -58,6 +58,12 @@ This triggers only when free space is simultaneously below 15% **and** below 10 
 
 The bilingual alert label reads its threshold description directly from these keys, so changing values in `App.config` updates both the trigger logic and the displayed message without recompiling.
 
+## Startup Monitoring Script (`diskspacemonitoring.vbs`)
+
+`diskspacemonitoring.vbs` is a VBScript intended to run as a **user startup script** (e.g. deployed via Group Policy). It runs silently in the background and checks the C: drive free space every **30 minutes**. When free space drops below the configured threshold it launches `DiskSpace.exe` to show the notification window to the user.
+
+**Deployment:** Add the script to the user's startup via Group Policy or place a shortcut in `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup`.
+
 ## GitHub Actions
 
 Pushing a tag (e.g. `git tag v1.0.0 && git push origin v1.0.0`) triggers the release workflow which:
