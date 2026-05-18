@@ -28,10 +28,13 @@ jobs:
       - name: Build Release
         run: msbuild Diskspace_Notification.sln /p:Configuration=Release /p:Platform="Any CPU"
 
+      - name: Package release files
+        run: Compress-Archive -Path bin/Release/Diskspace_Notification.exe, bin/Release/Diskspace_Notification.exe.config -DestinationPath Diskspace_Notification.zip
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
-          files: bin/Release/Diskspace_Notification.exe
+          files: Diskspace_Notification.zip
           generate_release_notes: true
