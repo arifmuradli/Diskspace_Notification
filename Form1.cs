@@ -101,7 +101,7 @@ namespace Diskspace_Notification
         private string BuildAzerbaijaniText()
         {
             string desc = BuildThresholdDescription(english: false);
-            return $"Diqqət!\r\nSizin komputerinizin sistem diskində boş yer {desc}-dən aşağıdır.\r\nZəhmət olmasa, sistem diskinizdə (\"C\" diski) olan böyükhəcmli fayllarınızı digər disklərə (\"D\" və s.) köçürün və kömək lazım olarsa Helpdesk-ə müraciət edin.";
+            return $"Diqqət!\r\nSizin komputerinizin sistem diskində boş yer {desc} limitindən aşağıdır.\r\nZəhmət olmasa, sistem diskinizdə (\"C\" diski) olan böyükhəcmli fayllarınızı digər disklərə (\"D\" və s.) köçürün və kömək lazım olarsa Helpdesk-ə müraciət edin.";
         }
 
         private string BuildEnglishText()
@@ -118,6 +118,11 @@ namespace Diskspace_Notification
         private void button4_Click(object sender, EventArgs e)
         {
             label3.Text = BuildEnglishText();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
