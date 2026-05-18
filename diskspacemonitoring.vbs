@@ -24,7 +24,7 @@ Do
             If colProcesses.Count = 0 Then
                 ' Execute the specified executable if diskspace.exe is not running
                 Set objShell = CreateObject("WScript.Shell")
-                objShell.Run "\\domain.local\NETLOGON\Startup_User\DiskSpace\DiskSpace.exe"
+                objShell.Run "\\accessbank.local\NETLOGON\Startup_User\DiskSpace\DiskSpace.exe"
             End If
         End If
     Next
